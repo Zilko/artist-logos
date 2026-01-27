@@ -15,24 +15,35 @@ static const std::unordered_map<std::string_view, LogoProperties> g_artists = {
     { "Camellia", LogoProperties{ .offsetY = -1.f } },
     { "bossfightofficial", LogoProperties{ .offsetY = -2.f, .extraHeight = 10.1f } },
     { "ThisIsTheFatRat", LogoProperties{ .offsetY = -2.f, .extraHeight = 10.1f } },
+    { "Shirobon", LogoProperties{ .offsetY = -1.f, .extraHeight = 4.1f } },
     { "ParagonX9", LogoProperties{ .offsetY = -1.f, .extraHeight = -7.f } },
+    { "t+pazolite", LogoProperties{ .offsetY = -2.f, .extraHeight = 4.f } },
     { "Rukkus", LogoProperties{ .offsetY = -2.f, .extraHeight = 8.f } },
+    { "Envy", LogoProperties{ .offsetY = -1.f, .extraHeight = -1.f } },
     { "garlagan", LogoProperties{ .offsetY = -2.f, .extraHeight = 7.4f } },
     { "MDK", LogoProperties{ .offsetY = -2.f, .extraHeight = 12.f } },
     { "F-777", LogoProperties{ .extraHeight = 4.f } },
     { "LeaF", LogoProperties{ .offsetY = -1.5f, .extraHeight = 13.f } },
+    { "ColBreakz", LogoProperties{ .offsetY = -1.f, .extraHeight = 8.5f } },
     { "Koraii", LogoProperties{ .offsetY = -1.5f, .extraHeight = 5.f } },
     { "BoomKitty", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
+    { "lchavasse", LogoProperties{ .offsetY = -1.5f, .extraHeight = 6.7f } },
     { "OcularNebula", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
+    { "Lockyn", LogoProperties{ .offsetY = -1.5f, .extraHeight = 9.f } },
     { "Dunderpatrullen", LogoProperties{ .offsetY = -1.5f, .extraHeight = 5.f } },
     { "dj-Nate", LogoProperties{ .offsetY = -1.9f, .extraHeight = 11.f } },
     { "ArdolfGD", LogoProperties{ .offsetY = -1.3f, .extraHeight = 9.f } },
     { "NightHawk22", LogoProperties{ .offsetY = -1.3f, .extraHeight = 6.f } },
+    { "xi", LogoProperties{ .offsetY = -0.68f, .extraHeight = 7.f } },
     { "Teminite", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
+    { "Xtrullor", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
     { "1f1n1ty", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
     { "SixImpala", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
+    { "dexarson", LogoProperties{ .extraHeight = 13.f } },
     { "cysmix", LogoProperties{ .offsetY = -1.5f, .extraHeight = 9.f } },
     { "meganeko", LogoProperties{ .offsetY = -2.5f, .extraHeight = 7.f } },
+    { "Helblinde", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
+    { "hinkik", LogoProperties{ .offsetY = -1.4f, .extraHeight = -3.5f } },
     { "Acid-Notation", LogoProperties{ .offsetY = -1.5f } },
     { "DJVI", LogoProperties{ .offsetY = -1.5f, .extraHeight = 8.4f } },
     { "Step", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
@@ -41,6 +52,8 @@ static const std::unordered_map<std::string_view, LogoProperties> g_artists = {
     { "Dimrain47", LogoProperties{ .offsetY = -0.9f, .extraHeight = 3.f } },
     { "CreoMusic", LogoProperties{ .offsetY = -4.8f, .extraHeight = 10.f } },
     { "Waterflame", LogoProperties{ .offsetY = -2.f, .extraHeight = 6.f } },
+    { "Extra Terra", LogoProperties{ .offsetY = -2.f, .extraHeight = 11.f } },
+    { "TheLivingTombstone", LogoProperties{ .offsetY = -1.f, .extraHeight = 13.f } },
 };
 
 static const std::unordered_map<std::string_view, std::string_view> g_aliases {
@@ -49,6 +62,7 @@ static const std::unordered_map<std::string_view, std::string_view> g_aliases {
     {"Boom Kitty", "BoomKitty"},
     {"TOMBOYY", "Koraii"},
     {"DJ-Nate", "dj-Nate"},
+    {"shirobonmusic", "Shirobon"},
 };
 
 std::string_view getArtistFilename(std::string_view artist) {
@@ -107,7 +121,6 @@ class $modify(LevelCell) {
         if (!isArtistAdded(artist)) {
             return;
         }
-
         auto spr = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
         spr->setScale(11.f / (spr->getContentHeight() - getExtraHeight(artist)));
         spr->setID("artist-logo"_spr);
@@ -322,8 +335,6 @@ class $modify(LevelSelectLayer) {
         }
 
         auto listLayer = layer->getChildByIndex(0)->getChildByType<GJListLayer>(0);
-        // log::debug("{}", listLayer->getChildByType<CustomListView>(0)->m_tableView->m_contentLayer);
-        // return;
         
         for (auto cell : listLayer->getChildByType<CustomListView>(0)->m_tableView->m_contentLayer->getChildrenExt<SongCell*>()) {
             std::string artist = LevelTools::nameForArtist(LevelTools::artistForAudio(cell->m_songObject->m_audioID));
@@ -350,7 +361,7 @@ class $modify(LevelSelectLayer) {
             auto prevX = lbl->getPositionX();
 
             lbl->setPositionX(logo->getPositionX() + logo->getScaledContentWidth() + 4.25f);
-            lbl->limitLabelWidth(230.f, lbl->getScale(), 0.f);
+            lbl->limitLabelWidth(222.f, lbl->getScale(), 0.f);
         }
     }
 

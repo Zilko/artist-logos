@@ -10,7 +10,14 @@
 	"name": "Artist Logos",
 	"version": "v1.0.0",
 	"developer": "Zilko",
-	"description": "",
+	"description": "adds artist logos",
+	"links": {
+		"source": "https://github.com/Zilko/artist-logos",
+		"community": "https://discord.gg/w6yvdzVzBd"
+	},
+	"tags": [
+		"universal", "editor", "offline", "enhancement", "music", "interface", "content"
+	],
 	"resources": {
 		"sprites": [
 			"resources/*.png"
