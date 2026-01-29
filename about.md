@@ -2,6 +2,8 @@
 
 * idea by silenceglobally he suggested artists and you can too
 
+[mod commission](https://www.fiverr.com/zilkowo/make-you-a-geometry-dash-mod-of-your-design)
+
 adds artist logos next to song names like the ncs or chompo ones
 
 current artists:

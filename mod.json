@@ -11,12 +11,15 @@
 	"version": "v1.0.0",
 	"developer": "Zilko",
 	"description": "adds artist logos",
+	"dependencies": {
+		"geode.node-ids": ">=v1.21.1"
+	},
 	"links": {
 		"source": "https://github.com/Zilko/artist-logos",
 		"community": "https://discord.gg/w6yvdzVzBd"
 	},
 	"tags": [
-		"universal", "editor", "offline", "enhancement", "music", "interface", "content"
+		"editor", "offline", "enhancement", "music", "interface", "content"
 	],
 	"resources": {
 		"sprites": [

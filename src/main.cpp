@@ -15,40 +15,40 @@ static const std::unordered_map<std::string_view, LogoProperties> g_artists = {
     { "Camellia", LogoProperties{ .offsetY = -1.f } },
     { "bossfightofficial", LogoProperties{ .offsetY = -2.f, .extraHeight = 10.1f } },
     { "ThisIsTheFatRat", LogoProperties{ .offsetY = -2.f, .extraHeight = 10.1f } },
-    { "Shirobon", LogoProperties{ .offsetY = -1.f, .extraHeight = 4.1f } },
+    { "Shirobon", LogoProperties{ .offsetY = -1.5f, .extraHeight = 2.1f } },
     { "ParagonX9", LogoProperties{ .offsetY = -1.f, .extraHeight = -7.f } },
-    { "t+pazolite", LogoProperties{ .offsetY = -2.f, .extraHeight = 4.f } },
-    { "Rukkus", LogoProperties{ .offsetY = -2.f, .extraHeight = 8.f } },
+    { "t+pazolite", LogoProperties{ .offsetY = -2.f, .extraHeight = 7.f } },
+    { "Rukkus", LogoProperties{ .offsetY = -2.f, .extraHeight = 9.f } },
     { "Envy", LogoProperties{ .offsetY = -1.f, .extraHeight = -1.f } },
     { "garlagan", LogoProperties{ .offsetY = -2.f, .extraHeight = 7.4f } },
     { "MDK", LogoProperties{ .offsetY = -2.f, .extraHeight = 12.f } },
-    { "F-777", LogoProperties{ .extraHeight = 4.f } },
-    { "LeaF", LogoProperties{ .offsetY = -1.5f, .extraHeight = 13.f } },
+    { "F-777", LogoProperties{ .offsetY = -2.f, .extraHeight = 6.f } },
+    { "LeaF", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
     { "ColBreakz", LogoProperties{ .offsetY = -1.f, .extraHeight = 8.5f } },
-    { "Koraii", LogoProperties{ .offsetY = -1.5f, .extraHeight = 5.f } },
+    { "Koraii", LogoProperties{ .offsetY = -1.5f, .extraHeight = 8.f } },
     { "BoomKitty", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
     { "lchavasse", LogoProperties{ .offsetY = -1.5f, .extraHeight = 6.7f } },
     { "OcularNebula", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
     { "Lockyn", LogoProperties{ .offsetY = -1.5f, .extraHeight = 9.f } },
     { "Dunderpatrullen", LogoProperties{ .offsetY = -1.5f, .extraHeight = 5.f } },
-    { "dj-Nate", LogoProperties{ .offsetY = -1.9f, .extraHeight = 11.f } },
+    { "dj-Nate", LogoProperties{ .offsetY = -1.f, .extraHeight = 8.f } },
     { "ArdolfGD", LogoProperties{ .offsetY = -1.3f, .extraHeight = 9.f } },
     { "NightHawk22", LogoProperties{ .offsetY = -1.3f, .extraHeight = 6.f } },
     { "xi", LogoProperties{ .offsetY = -0.68f, .extraHeight = 7.f } },
     { "Teminite", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
     { "Xtrullor", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
     { "1f1n1ty", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.f } },
-    { "SixImpala", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
+    { "SixImpala", LogoProperties{ .offsetY = -0.5f, .extraHeight = 9.7f } },
     { "dexarson", LogoProperties{ .extraHeight = 13.f } },
-    { "cysmix", LogoProperties{ .offsetY = -1.5f, .extraHeight = 9.f } },
-    { "meganeko", LogoProperties{ .offsetY = -2.5f, .extraHeight = 7.f } },
+    { "cysmix", LogoProperties{ .offsetY = -1.5f, .extraHeight = 1.f } },
+    { "meganeko", LogoProperties{ .offsetY = -2.5f, .extraHeight = 5.f } },
     { "Helblinde", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
     { "hinkik", LogoProperties{ .offsetY = -1.4f, .extraHeight = -3.5f } },
     { "Acid-Notation", LogoProperties{ .offsetY = -1.5f } },
     { "DJVI", LogoProperties{ .offsetY = -1.5f, .extraHeight = 8.4f } },
-    { "Step", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
-    { "ForeverBound", LogoProperties{ .offsetY = -1.5f, .extraHeight = 3.5f } },
-    { "Frums", LogoProperties{ .offsetY = -1.5f, .extraHeight = 7.f } },
+    { "Step", LogoProperties{ .offsetY = -1.5f, .extraHeight = 10.2f } },
+    { "ForeverBound", LogoProperties{ .offsetY = -1.5f, .extraHeight = 5.5f } },
+    { "Frums", LogoProperties{ .offsetY = -1.5f, .extraHeight = 11.f } },
     { "Dimrain47", LogoProperties{ .offsetY = -0.9f, .extraHeight = 3.f } },
     { "CreoMusic", LogoProperties{ .offsetY = -4.8f, .extraHeight = 10.f } },
     { "Waterflame", LogoProperties{ .offsetY = -2.f, .extraHeight = 6.f } },
@@ -93,7 +93,18 @@ float getExtraHeight(std::string_view artist) {
     return g_artists.at(getArtistFilename(artist)).extraHeight;
 }
 
-class $modify(LevelCell) {
+class $modify(ProLevelCell, LevelCell) {
+
+    struct Fields {
+        CCSprite* m_logo = nullptr;
+        CCNode* m_songLabel = nullptr;
+        float m_offsetY = 0.f;
+    };
+
+    void updatePosition(float) {
+        auto f = m_fields.self();
+        f->m_logo->setPositionY(f->m_songLabel->getPositionY() + f->m_offsetY);
+    }
 
     void loadCustomLevelCell() {
         LevelCell::loadCustomLevelCell();
@@ -121,15 +132,15 @@ class $modify(LevelCell) {
         if (!isArtistAdded(artist)) {
             return;
         }
-        auto spr = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
-        spr->setScale(11.f / (spr->getContentHeight() - getExtraHeight(artist)));
-        spr->setID("artist-logo"_spr);
+        auto logo = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
+        logo->setScale(11.f / (logo->getContentHeight() - getExtraHeight(artist)));
+        logo->setID("artist-logo"_spr);
         
         auto ogX = songLabel->getPositionX();
         auto ogScale = songLabel->getScale();
 
-        songLabel->setPositionX(songLabel->getPositionX() + spr->getScaledContentWidth() + 4.25f);
-        songLabel->limitLabelWidth((m_compactView ? 185.f : 195.f) - spr->getScaledContentWidth() - 4.25f, songLabel->getScale(), 0.f);
+        songLabel->setPositionX(songLabel->getPositionX() + logo->getScaledContentWidth() + 4.25f);
+        songLabel->limitLabelWidth((m_compactView ? 185.f : 195.f) - logo->getScaledContentWidth() - 4.25f, songLabel->getScale(), 0.f);
 
         if (m_compactView) {
             auto offset = songLabel->getPositionX() - ogX - (songLabel->getContentWidth() * ogScale - songLabel->getScaledContentWidth());
@@ -147,10 +158,18 @@ class $modify(LevelCell) {
             }
         }
 
-        spr->setAnchorPoint({0, 0.5f});
-        spr->setPosition({ogX, songLabel->getPositionY() + getOffsetY(artist) * 0.85f});
+        logo->setAnchorPoint({0, 0.5f});
+        logo->setPosition({ogX, songLabel->getPositionY() + getOffsetY(artist) * 0.85f});
 
-        m_mainLayer->addChild(spr);
+        m_mainLayer->addChild(logo, 1);
+
+        if (Loader::get()->isModLoaded("kampwski.level_tags")) {
+            auto f = m_fields.self();
+            f->m_logo = logo;
+            f->m_songLabel = songLabel;
+            f->m_offsetY = getOffsetY(artist);
+            schedule(schedule_selector(ProLevelCell::updatePosition), 0.01667f);
+        }
     }
 
 };
@@ -174,13 +193,13 @@ class $modify(SongInfoLayer) {
             return true;
         }
 
-        auto spr = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
-        spr->setAnchorPoint({1.f, 1.f});
-        spr->setPosition(CCDirector::get()->getWinSize() / 2.f + ccp(200.75f, 130.4f));
-        spr->setScale(16.8f / (spr->getContentHeight() - getExtraHeight(artist)));
-        spr->setID("artist-logo"_spr);
+        auto logo = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
+        logo->setAnchorPoint({1.f, 1.f});
+        logo->setPosition(CCDirector::get()->getWinSize() / 2.f + ccp(200.75f, 130.4f));
+        logo->setScale(16.8f / (logo->getContentHeight() - getExtraHeight(artist)));
+        logo->setID("artist-logo"_spr);
 
-        m_mainLayer->addChild(spr);
+        m_mainLayer->addChild(logo, 1);
 
         return true;
     }
@@ -222,7 +241,7 @@ class $modify(ProCustomSongWidget, CustomSongWidget) {
                 f->m_logo->setScale(f->m_logo->getScale() * 0.74f);
             }
             
-            addChild(f->m_logo);
+            addChild(f->m_logo, 1);
 
             f->m_ogPosition = m_songLabel->getPosition();
         }
@@ -309,7 +328,7 @@ class $modify(MusicBrowser) {
             logo->setPosition(lbl->getPosition() + ccp(0, getOffsetY(artist) * 1.25f));
             logo->setID("artist-logo"_spr);
             
-            cell->m_mainLayer->addChild(logo);
+            cell->m_mainLayer->addChild(logo, 1);
 
             auto prevX = lbl->getPositionX();
 
@@ -356,7 +375,7 @@ class $modify(LevelSelectLayer) {
             logo->setPosition(lbl->getPosition() + ccp(0, getOffsetY(artist) * 1.25f));
             logo->setID("artist-logo"_spr);
             
-            cell->m_mainLayer->addChild(logo);
+            cell->m_mainLayer->addChild(logo, 1);
 
             auto prevX = lbl->getPositionX();
 
