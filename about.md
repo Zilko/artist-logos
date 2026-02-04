@@ -41,6 +41,7 @@ current artists:
 - OcularNebula
 - Dunderpatrullen
 - ArdolfGD
+- GoodKidBand
 - SixImpala
 - cysmix
 - Helblinde
