@@ -110,10 +110,6 @@ class $modify(ProLevelCell, LevelCell) {
     void loadCustomLevelCell() {
         LevelCell::loadCustomLevelCell();
 
-        if (m_mainLayer->getChildByID("ncs-icon")) {
-            return;
-        }
-
         auto songLabel = static_cast<CCLabelBMFont*>(m_mainLayer->getChildByID("song-name"));
 
         if (!songLabel) {
@@ -127,6 +123,10 @@ class $modify(ProLevelCell, LevelCell) {
         if (!object) {
             artist = LevelTools::nameForArtist(LevelTools::artistForAudio(m_level->m_audioTrack));
         } else {
+            if (object->m_nongType != 0) {
+                return;    
+            }
+            
             artist = object->m_artistName;
         }
 
@@ -182,9 +182,7 @@ class $modify(SongInfoLayer) {
             return false;
         }
 
-        log::debug("{}", nongType);
-
-        if (nongType == 1) { // ncs
+        if (nongType != 0) {
             return true;
         }
 
@@ -220,7 +218,7 @@ class $modify(ProCustomSongWidget, CustomSongWidget) {
     }
 
     void updateLogo() {
-        if (!m_songInfoObject || m_songInfoObject->m_nongType == 1) { // ncs
+        if (!m_songInfoObject || m_songInfoObject->m_nongType != 0) {
             return;
         }
 
