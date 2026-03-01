@@ -210,6 +210,7 @@ class $modify(ProCustomSongWidget, CustomSongWidget) {
     struct Fields {
         CCSprite* m_logo = nullptr;
         CCPoint m_ogPosition = {0, 0};
+        std::string m_artist;
     };
  
     static void onModify(auto& self) {
@@ -225,10 +226,24 @@ class $modify(ProCustomSongWidget, CustomSongWidget) {
         std::string artist = m_songInfoObject->m_artistName;
 
         if (!isArtistAdded(artist)) {
+            auto f = m_fields.self();
+
+            if (f->m_logo) {
+                f->m_logo->removeFromParent();
+                f->m_logo = nullptr;
+            }
+
             return;
         }
 
-        auto f = m_fields.self();
+            auto f = m_fields.self();
+
+        if (f->m_logo && f->m_artist != artist) {
+            f->m_logo->removeFromParent();
+            f->m_logo = nullptr;
+        }
+
+        f->m_artist = artist;
 
         if (!f->m_logo) {
             f->m_logo = CCSprite::create(fmt::format("{}.png"_spr, getArtistFilename(artist)).c_str());
