@@ -8,7 +8,7 @@
 	},
 	"id": "zilko.artist_logos",
 	"name": "Artist Logos",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "Zilko",
 	"description": "adds artist logos",
 	"dependencies": {

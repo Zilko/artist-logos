@@ -51,3 +51,5 @@ current artists:
 - Step
 - ForeverBound
 - Extra Terra
+- Availax
+- Dirty Paws
