@@ -57,6 +57,11 @@ static const std::unordered_map<std::string_view, LogoProperties> g_artists = {
     { "GoodKidBand", LogoProperties{ .offsetY = -1.3f, .extraHeight = 13.f } },
     { "Extra Terra", LogoProperties{ .offsetY = -2.f, .extraHeight = 11.f } },
     { "TheLivingTombstone", LogoProperties{ .offsetY = -1.f, .extraHeight = 13.f } },
+    { "Syncroned", LogoProperties{ .offsetY = -1.f, .extraHeight = 11.5f } },
+    { "Sharks", LogoProperties{ .offsetY = -2.f, .extraHeight = 7.5f } },
+    { "Dalux", LogoProperties{ .offsetY = -1.3f, .extraHeight = 5.f } },
+    { "Exyl", LogoProperties{ .offsetY = -1.3f, .extraHeight = 7.1f } },
+    { "Geoplex", LogoProperties{ .offsetY = -1.5f, .extraHeight = 8.f } },
 };
 
 static const std::unordered_map<std::string_view, std::string_view> g_aliases {
