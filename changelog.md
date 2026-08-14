@@ -1,3 +1,7 @@
+# v1.0.4
+
+* Added two artists
+
 # v1.0.3
 
 * Added 5 new bois: Sharks, Exyl, Dalux, Syncroned, Geoplex
