@@ -1,3 +1,7 @@
+# v1.0.5
+
+* secret update
+
 # v1.0.4
 
 * Added two artists

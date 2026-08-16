@@ -74,6 +74,7 @@ static const std::unordered_map<std::string_view, std::string_view> g_aliases {
     {"DJ-Nate", "dj-Nate"},
     {"shirobonmusic", "Shirobon"},
     {"Calico", "Resharia"},
+    {"SyncTM", "Syncroned"},
 };
 
 std::string_view getArtistFilename(std::string_view artist) {
