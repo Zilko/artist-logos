@@ -64,6 +64,7 @@ static const std::unordered_map<std::string_view, LogoProperties> g_artists = {
     { "Geoplex", LogoProperties{ .offsetY = -1.5f, .extraHeight = 8.f } },
     { "Resharia", LogoProperties{ .offsetY = -1.6f, .extraHeight = 18.f } },
     { "tangermusic", LogoProperties{ .offsetY = -0.9f, .extraHeight = 3.f } },
+    { "LLAAPPSSEE", LogoProperties{ .offsetY = -2.38f, .extraHeight = 8.5f } },
 };
 
 static const std::unordered_map<std::string_view, std::string_view> g_aliases {
@@ -75,6 +76,7 @@ static const std::unordered_map<std::string_view, std::string_view> g_aliases {
     {"shirobonmusic", "Shirobon"},
     {"Calico", "Resharia"},
     {"SyncTM", "Syncroned"},
+    {"Llaappssee", "LLAAPPSSEE"},
 };
 
 std::string_view getArtistFilename(std::string_view artist) {
